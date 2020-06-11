@@ -22,7 +22,7 @@ class TarefaService {
         if($tarefa){
             return $this->create($data, $usr, $tarefa);
         }
-        return 'Nenhuma tarefa encontrada!';
+        return 'Nenhuma tarefa econtrada!';
     }
 
     public function create($data, $usr, $tarefa=null){
