@@ -8,7 +8,7 @@ return [
             'dsn' => "pgsql:dbname=postgres;host={$host}",
            	'route' => '/oauth',
            	'username' => 'postgres',
-           	'password' => 'postgres',
+           	'password' => 'root',
        	],
        	'options' => [
             'always_issue_new_refresh_token' => true,
