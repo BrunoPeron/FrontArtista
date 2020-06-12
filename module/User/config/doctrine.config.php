@@ -18,6 +18,7 @@ return [
                     'Core\Entity\Oauth' => 'core_oauth',
                     'Core\Entity\Endereco' => 'core_endereco',
                     'Core\Entity\Projeto' => 'core_projeto',
+                    'Core\Entity\Pessoa' => 'core_pessoa',
                 ]
             ]
         ],

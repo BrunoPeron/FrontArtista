@@ -47,4 +47,5 @@ return array(
     'DoctrineDataFixtureModule',
     'ZF\\Apigility\\Documentation\\Swagger',
     'Projeto',
+    'Pessoa',
 );
