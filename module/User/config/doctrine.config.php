@@ -20,6 +20,7 @@ return [
                     'Core\Entity\Projeto' => 'core_projeto',
                     'Core\Entity\Pessoa' => 'core_pessoa',
                     'Core\Entity\Servicos' => 'core_servicos',
+                    'Core\Entity\Transacao' => 'core_transacao',
                 ]
             ]
         ],
