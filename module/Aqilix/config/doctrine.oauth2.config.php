@@ -65,6 +65,13 @@ return [
                     __DIR__.'/Core/Entity/Projeto'
                 ],
             ],
+            'core_servicos' => [
+                'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [
+                    __DIR__.'/Core/Entity/Servicos'
+                ],
+            ],
             'core_pessoa' => [
                 'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
                 'cache' => 'array',
