@@ -49,4 +49,5 @@ return array(
     'Projeto',
     'Pessoa',
     'Servicos',
+    'Transacao',
 );
