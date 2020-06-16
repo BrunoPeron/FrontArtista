@@ -27,6 +27,7 @@ return array(
                 'Pessoa\\V1' => 'oauth2_pdo',
                 'Servicos\\V1' => 'oauth2_pdo',
                 'Transacao\\V1' => 'oauth2_pdo',
+                'BatePapo\\V1' => 'oauth2_pdo',
             ),
         ),
     ),

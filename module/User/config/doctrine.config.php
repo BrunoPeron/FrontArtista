@@ -21,6 +21,7 @@ return [
                     'Core\Entity\Pessoa' => 'core_pessoa',
                     'Core\Entity\Servicos' => 'core_servicos',
                     'Core\Entity\Transacao' => 'core_transacao',
+                    'Core\Entity\BatePapo' => 'core_batepapo',
                 ]
             ]
         ],
