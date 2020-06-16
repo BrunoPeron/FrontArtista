@@ -86,6 +86,13 @@ return [
                     __DIR__.'/Core/Entity/Transacao'
                 ],
             ],
+            'core_batepapo' => [
+                'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [
+                    __DIR__.'/Core/Entity/BatePapo'
+                ],
+            ],
             'orm_default' => [
                 'drivers' => [
                     'Aqilix\OAuth2\Entity' => 'aqilix_oauth2_entity'
