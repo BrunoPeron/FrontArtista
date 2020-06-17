@@ -51,4 +51,5 @@ return array(
     'Servicos',
     'Transacao',
     'BatePapo',
+    'Galeria',
 );

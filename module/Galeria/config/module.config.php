@@ -2,17 +2,17 @@
 return array(
     'service_manager' => array(
         'factories' => array(
-            'Usuarios\\V1\\Rest\\Usuario\\UsuarioResource' => 'Usuarios\\V1\\Rest\\Usuario\\UsuarioResourceFactory',
+            'Galeria\\V1\\Rest\\Obras\\ObrasResource' => 'Galeria\\V1\\Rest\\Obras\\ObrasResourceFactory',
         ),
     ),
     'router' => array(
         'routes' => array(
-            'usuarios.rest.usuario' => array(
+            'galeria.rest.obras' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/usuario[/:usuario_id]',
+                    'route' => '/obras[/:obras_id]',
                     'defaults' => array(
-                        'controller' => 'Usuarios\\V1\\Rest\\Usuario\\Controller',
+                        'controller' => 'Galeria\\V1\\Rest\\Obras\\Controller',
                     ),
                 ),
             ),
@@ -20,15 +20,15 @@ return array(
     ),
     'zf-versioning' => array(
         'uri' => array(
-            0 => 'usuarios.rest.usuario',
+            0 => 'galeria.rest.obras',
         ),
     ),
     'zf-rest' => array(
-        'Usuarios\\V1\\Rest\\Usuario\\Controller' => array(
-            'listener' => 'Usuarios\\V1\\Rest\\Usuario\\UsuarioResource',
-            'route_name' => 'usuarios.rest.usuario',
-            'route_identifier_name' => 'usuario_id',
-            'collection_name' => 'usuario',
+        'Galeria\\V1\\Rest\\Obras\\Controller' => array(
+            'listener' => 'Galeria\\V1\\Rest\\Obras\\ObrasResource',
+            'route_name' => 'galeria.rest.obras',
+            'route_identifier_name' => 'obras_id',
+            'collection_name' => 'obras',
             'entity_http_methods' => array(
                 0 => 'GET',
                 1 => 'PATCH',
@@ -39,52 +39,54 @@ return array(
             'collection_http_methods' => array(
                 0 => 'GET',
                 1 => 'POST',
+                2 => 'PUT',
+                3 => 'DELETE',
             ),
             'collection_query_whitelist' => array(),
             'page_size' => 25,
             'page_size_param' => null,
-            'entity_class' => 'Usuarios\\V1\\Rest\\Usuario\\UsuarioEntity',
-            'collection_class' => 'Usuarios\\V1\\Rest\\Usuario\\UsuarioCollection',
-            'service_name' => 'usuario',
+            'entity_class' => 'Galeria\\V1\\Rest\\Obras\\ObrasEntity',
+            'collection_class' => 'Galeria\\V1\\Rest\\Obras\\ObrasCollection',
+            'service_name' => 'obras',
         ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
-            'Usuarios\\V1\\Rest\\Usuario\\Controller' => 'HalJson',
+            'Galeria\\V1\\Rest\\Obras\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
-            'Usuarios\\V1\\Rest\\Usuario\\Controller' => array(
-                0 => 'application/vnd.usuarios.v1+json',
+            'Galeria\\V1\\Rest\\Obras\\Controller' => array(
+                0 => 'application/vnd.galeria.v1+json',
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ),
         ),
         'content_type_whitelist' => array(
-            'Usuarios\\V1\\Rest\\Usuario\\Controller' => array(
-                0 => 'application/vnd.usuarios.v1+json',
+            'Galeria\\V1\\Rest\\Obras\\Controller' => array(
+                0 => 'application/vnd.galeria.v1+json',
                 1 => 'application/json',
             ),
         ),
     ),
     'zf-hal' => array(
         'metadata_map' => array(
-            'Usuarios\\V1\\Rest\\Usuario\\UsuarioEntity' => array(
+            'Galeria\\V1\\Rest\\Obras\\ObrasEntity' => array(
                 'entity_identifier_name' => 'id',
-                'route_name' => 'usuarios.rest.usuario',
-                'route_identifier_name' => 'usuario_id',
+                'route_name' => 'galeria.rest.obras',
+                'route_identifier_name' => 'obras_id',
                 'hydrator' => 'Zend\\Hydrator\\ArraySerializable',
             ),
-            'Usuarios\\V1\\Rest\\Usuario\\UsuarioCollection' => array(
+            'Galeria\\V1\\Rest\\Obras\\ObrasCollection' => array(
                 'entity_identifier_name' => 'id',
-                'route_name' => 'usuarios.rest.usuario',
-                'route_identifier_name' => 'usuario_id',
+                'route_name' => 'galeria.rest.obras',
+                'route_identifier_name' => 'obras_id',
                 'is_collection' => true,
             ),
         ),
     ),
     'zf-mvc-auth' => array(
         'authorization' => array(
-            'Usuarios\\V1\\Rest\\Usuario\\Controller' => array(
+            'Galeria\\V1\\Rest\\Obras\\Controller' => array(
                 'collection' => array(
                     'GET' => true,
                     'POST' => true,
@@ -103,23 +105,23 @@ return array(
         ),
     ),
     'zf-content-validation' => array(
-        'Usuarios\\V1\\Rest\\Usuario\\Controller' => array(
-            'input_filter' => 'Usuarios\\V1\\Rest\\Usuario\\Validator',
+        'Galeria\\V1\\Rest\\Obras\\Controller' => array(
+            'input_filter' => 'Galeria\\V1\\Rest\\Obras\\Validator',
         ),
     ),
     'input_filter_specs' => array(
-        'Usuarios\\V1\\Rest\\Usuario\\Validator' => array(
+        'Galeria\\V1\\Rest\\Obras\\Validator' => array(
             0 => array(
                 'required' => false,
                 'validators' => array(),
                 'filters' => array(),
-                'name' => 'img',
+                'name' => 'id',
             ),
             1 => array(
                 'required' => false,
                 'validators' => array(),
                 'filters' => array(),
-                'name' => 'id',
+                'name' => 'img',
             ),
             2 => array(
                 'required' => false,
