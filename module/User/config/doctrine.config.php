@@ -23,6 +23,7 @@ return [
                     'Core\Entity\Transacao' => 'core_transacao',
                     'Core\Entity\BatePapo' => 'core_batepapo',
                     'Core\Entity\Galeria' => 'core_galeria',
+                    'Core\Entity\Mensagens' => 'core_mensagens',
                 ]
             ]
         ],

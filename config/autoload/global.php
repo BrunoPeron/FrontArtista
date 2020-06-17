@@ -29,6 +29,7 @@ return array(
                 'Transacao\\V1' => 'oauth2_pdo',
                 'BatePapo\\V1' => 'oauth2_pdo',
                 'Galeria\\V1' => 'oauth2_pdo',
+                'Mensagens\\V1' => 'oauth2_pdo',
             ),
         ),
     ),

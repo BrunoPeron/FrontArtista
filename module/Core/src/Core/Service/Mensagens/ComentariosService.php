@@ -1,32 +1,30 @@
 <?php
 
-namespace Core\Service\BatePapo;
+namespace Core\Service\Mensagens;
 
-use Core\Entity\BatePapo\Chat;
+use Core\Entity\Mensagens\Comentarios;
 use Doctrine\ORM\EntityManager;
 
-class ChatService{
+class ComentariosService
+{
     public $em;
     public function __construct(EntityManager $em){
     $this->em = $em;
     }
-    public function create($data, $usr, $chat = null){
-        if(!$chat){
-            $chat = new Chat();
+    public function create($data, $usr, $comentarios = null){
+        if(!$comentarios){
+            $comentarios = new Comentarios();
         }
 
-
-        $chat->idChat = $data['idChat'];
-        $chat->src = $data['de']; //emisor
-        $chat->dst = $data['para']; //destinatario
-        $datadia = date('d/m/Y');
-        $chat->dateMensagem = \DateTime::createFromFormat("d/m/Y",$datadia);
-        $chat->mensagem = $data['mensagem'];
+        $comentarios->obraid = $data['obraid'];
+        $comentarios->obra = $data['obra'];
+        $comentarios->userid = $data['userid'];
+        $comentarios->user = $data['user'];
+        $comentarios->mensagem = $data['mensagem'];
 
 
         try{
-
-            $this->em->persist($chat);
+            $this->em->persist($comentarios);
             $this->em->flush();
             return ['codigo' => 201,'mensagem'=>'mensagem enviada'];
         } catch (\Exception $e){
@@ -34,13 +32,12 @@ class ChatService{
             var_dump($e->getMessage());
             exit;
         }
-
     }
 
     public function fetch($id=null){
         $qb = $this->em->createQueryBuilder()
-            ->select('p.dateMensagem, p.src, p.dst, p.id,p.idChat, p.mensagem')
-            ->from('Core\Entity\BatePapo\Chat','p');
+            ->select('p.id, p.obraid, p.obra, p.userid, p.user, p.mensagem')
+            ->from('Core\Entity\Mensagens\Comentarios','p');
         if($id){
             $qb->where("p.id = ?1");
             // $qb->setParamaters(array(1 => $id));
@@ -50,8 +47,22 @@ class ChatService{
         return $result;
     }
 
+    public  function update($id, $data, $usr){
+        $comentarios = $this->em->getRepository(\Core\Entity\Mensagens\Comentarios::class)->findOneBy(['id' => $id]);
+        $comentarios->mensagem = $data['mensagem'];
+        try{
+            $this->em->persist($comentarios);
+            $this->em->flush();
+            return ['codigo' => 201,'mensagem'=>'mensagem enviada'];
+        } catch (\Exception $e){
+            var_dump($e->getCode());
+            var_dump($e->getMessage());
+            exit;
+        }
+    }
+
     public function delete($id){
-        $sql = "delete from chat where id = {$id} returning id";
+        $sql = "delete from comentarios where id = {$id} returning id";
         $stmt = $this->em->getConnection()->prepare($sql);
         try {
             $stmt->execute();
