@@ -207,6 +207,24 @@ return array(
                 'filters' => array(),
                 'name' => 'datanasc',
             ),
+            16 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'username',
+            ),
+            17 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'password',
+            ),
+            18 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'confirmpassword',
+            ),
         ),
     ),
 );

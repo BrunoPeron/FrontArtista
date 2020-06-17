@@ -4,6 +4,7 @@
 namespace Core\Service\Pessoa;
 
 use Core\Entity\Pessoa\Pessoa;
+use Core\Entity\Pessoa\Usuario;
 use Doctrine\ORM\EntityManager;
 
 class PessoaService
@@ -13,9 +14,11 @@ class PessoaService
         $this->em = $em;
     }
 
-    public function create($data, $usr, $pessoa=null){
-        if(!$pessoa){
+    public function create($data, $usr, $pessoa=null, $usuario = null){
+        if(!$pessoa && !$usuario){
             $pessoa = new Pessoa();
+            $usuario = new Usuario();
+
         }
         $pessoa->nomep = $data['nomep'];
         $pessoa->idade = $data['idade'];
@@ -34,8 +37,28 @@ class PessoaService
         $pessoa->infadd = $data['infadd'];
         $data_nasc = \DateTime::createFromFormat("d/m/Y", $data['datanasc']);
         $pessoa->datanasc = $data_nasc;
+
+        if ($data['password'] == $data['confirmpassword']){
+//            var_dump('vardump');
+
+        }else{
+//            var_dump('erro');
+
+        }
         try{
             $this->em->persist($pessoa);
+            $this->em->flush();
+            $qb = $this->em->createQueryBuilder()
+                ->select('max(p.codpessoa)')
+                ->from('Core\Entity\Pessoa\Pessoa', 'p');
+            $result = $qb->getQuery()->getResult();
+            $usuario->user_id = $result[0][1];
+            $usuario->client_id = $data['username'];
+            $usuario->redirect_uri = '';
+            $usuario->grant_types = 'client_credentials';
+            $usuario->scope = 'Site';
+            $usuario->client_secret = $data['password'];
+            $this->em->persist($usuario);
             $this->em->flush();
             return ['codigo' => 201, 'mensagem' => 'Pessoa criada com sucesso!'];
         } catch (\Exception $e){
