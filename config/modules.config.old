@@ -52,4 +52,5 @@ return array(
     'Transacao',
     'BatePapo',
     'Galeria',
+    'Mensagens',
 );
