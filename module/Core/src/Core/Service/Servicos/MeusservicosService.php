@@ -14,10 +14,27 @@ class MeusservicosService{
     public function create($data, $usr, $meusservicos = null){
         if(!$meusservicos){
             $meusservicos = new meusservicos();
-            $data = date('d/m/Y');
-            $meusservicos->dataInicio = \DateTime::createFromFormat("d/m/Y",$data);
-            $meusservicos->cliente = $data['cliente'];
-            $meusservicos->artista = $data['artista'];
+            $date = date('d/m/Y');
+            $meusservicos->dataInicio = \DateTime::createFromFormat("d/m/Y",$date);
+
+            $usuario = $this->em->getRepository(\Core\Entity\Pessoa\Pessoa::class)->findOneBy(['codpessoa' => $usr['user_id']]);
+            foreach ($usuario as $key => $value){
+                if ($key == 'codpessoa'){
+                    $codpessoa = $value;
+                } else if($key == 'nomep'){
+                    $nomep = $value;
+                }
+            }
+            $usuario2 = $this->em->getRepository(\Core\Entity\Pessoa\Pessoa::class)->findOneBy(['codpessoa' => $data['artistaid']]);
+            foreach ($usuario2 as $key => $value){
+                if($key == 'nomep'){
+                    $nomep2 = $value;
+                }
+            }
+            $meusservicos->cliente = $nomep;
+            $meusservicos->clienteid = $codpessoa;
+            $meusservicos->artista = $nomep2;
+            $meusservicos->artistaid = $data['artistaid'];
         }
 
         if(!$meusservicos->nome){
@@ -36,7 +53,7 @@ class MeusservicosService{
         try{
             $this->em->persist($meusservicos);
             $this->em->flush();
-            return ['codigo' => 201,'mensagem'=>'servico criado'];
+            return ['codigo' => 201,'mensagem'=>'Servico criado'];
         } catch (\Exception $e){
             var_dump($e->getCode());
             var_dump($e->getMessage());
@@ -46,7 +63,7 @@ class MeusservicosService{
 
     public function fetch($id=null){
         $qb = $this->em->createQueryBuilder()
-            ->select('p.nome, p.dataInicio, p.dataFim, p.cliente, p.artista, p.descricao, p.status, p.id')
+            ->select('p.nome, p.dataInicio, p.dataFim, p.cliente, p.artista, p.descricao, p.status, p.id, p.clienteid, p.artistaid')
             ->from('Core\Entity\Servicos\meusservicos','p');
         if($id){
             $qb->where("p.id = ?1");
@@ -71,10 +88,10 @@ class MeusservicosService{
             $stmt->execute();
             $retorno = $stmt->fetchAll();
             if(!isset($retorno[0])){
-                return ['codigo' => 404, 'mensagem' => 'Não foi possível excluir a tarefa, verique se você é o Dono!'];
+                return ['codigo' => 404, 'mensagem' => 'Não foi possível excluir o Servico, verique se você é o Dono!'];
             }
         } catch (\Exception $e){
-            return ['codigo' => 500, 'mensagem' => 'Não foi possível excluir a tarefa!'];
+            return ['codigo' => 500, 'mensagem' => 'Não foi possível excluir o Servico!'];
         }
         return ['codigo' => 200, 'mensagem' => 'Excluído com sucesso!'];
     }

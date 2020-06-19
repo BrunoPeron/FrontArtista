@@ -147,6 +147,12 @@ return array(
                 'filters' => array(),
                 'name' => 'likes',
             ),
+            6 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'iduser',
+            ),
         ),
     ),
 );

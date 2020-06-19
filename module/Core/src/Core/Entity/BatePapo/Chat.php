@@ -20,11 +20,23 @@ class Chat
      */
     public $src;
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="srcid", type="integer", nullable=false)
+     */
+    public $srcid;
+    /**
      * @var string
      *
      * @ORM\Column(name="dst", type="string", nullable=false)
      */
     public $dst;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="dstid", type="integer", nullable=false)
+     */
+    public $dstid;
     /**
      * @var integer
      *

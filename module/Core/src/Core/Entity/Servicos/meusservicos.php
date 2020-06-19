@@ -34,17 +34,29 @@ class meusservicos
      */
     public $descricao;
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="cliente", type="integer", nullable=false)
+     * @ORM\Column(name="cliente", type="string", nullable=false)
      */
     public $cliente;
     /**
      * @var integer
      *
-     * @ORM\Column(name="artista", type="integer", nullable=false)
+     * @ORM\Column(name="clienteid", type="integer", nullable=false)
+     */
+    public $clienteid;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="artista", type="string", nullable=false)
      */
     public $artista;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="artistaid", type="integer", nullable=false)
+     */
+    public $artistaid;
     /**
      * @var integer
      *

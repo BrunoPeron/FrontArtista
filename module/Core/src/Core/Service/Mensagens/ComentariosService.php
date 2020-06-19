@@ -16,17 +16,31 @@ class ComentariosService
             $comentarios = new Comentarios();
         }
 
+        $usuario = $this->em->getRepository(\Core\Entity\Pessoa\Pessoa::class)->findOneBy(['codpessoa' => $usr['user_id']]);
+        foreach ($usuario as $key => $value){
+            if ($key == 'codpessoa'){
+                $codpessoa = $value;
+            } else if($key == 'nomep'){
+                $nomep = $value;
+            }
+        }
+        $comentarios->userid = $codpessoa;
+        $comentarios->user = $nomep;
+        $obra = $this->em->getRepository(\Core\Entity\Galeria\Obras::class)->findOneBy(['id' => $data['obraid']]);
+        foreach ($obra as $key => $value){
+            if($key == 'nome'){
+                $nomeobra = $value;
+            }
+        }
         $comentarios->obraid = $data['obraid'];
-        $comentarios->obra = $data['obra'];
-        $comentarios->userid = $data['userid'];
-        $comentarios->user = $data['user'];
+        $comentarios->obra = $nomeobra;
         $comentarios->mensagem = $data['mensagem'];
 
 
         try{
             $this->em->persist($comentarios);
             $this->em->flush();
-            return ['codigo' => 201,'mensagem'=>'mensagem enviada'];
+            return ['codigo' => 201,'mensagem'=>'Mensagem enviada'];
         } catch (\Exception $e){
             var_dump($e->getCode());
             var_dump($e->getMessage());
@@ -53,7 +67,7 @@ class ComentariosService
         try{
             $this->em->persist($comentarios);
             $this->em->flush();
-            return ['codigo' => 201,'mensagem'=>'mensagem enviada'];
+            return ['codigo' => 201,'mensagem'=>'Mensagem alterada'];
         } catch (\Exception $e){
             var_dump($e->getCode());
             var_dump($e->getMessage());
@@ -68,10 +82,10 @@ class ComentariosService
             $stmt->execute();
             $retorno = $stmt->fetchAll();
             if(!isset($retorno[0])){
-                return ['codigo' => 404, 'mensagem' => 'Não foi possível excluir a tarefa, verique se você é o Dono!'];
+                return ['codigo' => 404, 'mensagem' => 'Não foi possível excluir a mensagem, verique se você é o Dono!'];
             }
         } catch (\Exception $e){
-            return ['codigo' => 500, 'mensagem' => 'Não foi possível excluir a tarefa!'];
+            return ['codigo' => 500, 'mensagem' => 'Não foi possível excluir a mensagem!'];
         }
         return ['codigo' => 200, 'mensagem' => 'Excluído com sucesso!'];
     }
