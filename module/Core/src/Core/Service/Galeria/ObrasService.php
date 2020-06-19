@@ -21,11 +21,19 @@ class ObrasService
             $obras = new Obras();
             $obras->likes = 0;
         }
-        echo 27;
 
+        $usuario = $this->em->getRepository(\Core\Entity\Pessoa\Pessoa::class)->findOneBy(['codpessoa' => $usr['user_id']]);
         $obras->img = $data['img'];
+        foreach ($usuario as $key => $value){
+            if ($key == 'codpessoa'){
+                $codpessoa = $value;
+            } else if($key == 'nomep'){
+                $nomep = $value;
+            }
+        }
+        $obras->iduser = $codpessoa;
         $obras->nome = $data['nome'];
-        $obras->artista = $data['artista'];
+        $obras->artista = $nomep;
         $obras->descricao = $data['descricao'];
         $obras->likes = $obras->likes + $data['likes'];
 
@@ -43,7 +51,7 @@ class ObrasService
 
     public function fetch($id=null){
         $qb = $this->em->createQueryBuilder()
-            ->select('p.img, p.id, p.nome, p.artista, p.descricao, p.likes')
+            ->select('p.img, p.id, p.nome, p.artista, p.descricao, p.likes, p.iduser')
             ->from('Core\Entity\Galeria\Obras','p');
         if($id){
             $qb->where("p.id = ?1");
@@ -56,8 +64,15 @@ class ObrasService
 
     public  function update($id, $data, $usr){
         $obras = $this->em->getRepository(\Core\Entity\Galeria\Obras::class)->findOneBy(['id' => $id]);
-        if($obras){
-            return $this->create($data, $usr, $obras);
+        $obras->likes = $obras->likes + $data['likes'];
+        try{
+            $this->em->persist($obras);
+            $this->em->flush();
+            return ['codigo' => 201,'mensagem'=>'Mensagem enviada'];
+        } catch (\Exception $e){
+            var_dump($e->getCode());
+            var_dump($e->getMessage());
+            exit;
         }
     }
 
@@ -68,10 +83,10 @@ class ObrasService
             $stmt->execute();
             $retorno = $stmt->fetchAll();
             if(!isset($retorno[0])){
-                return ['codigo' => 404, 'mensagem' => 'Não foi possível excluir a tarefa, verique se você é o Dono!'];
+                return ['codigo' => 404, 'mensagem' => 'Não foi possível excluir a Obra, verique se você é o Dono!'];
             }
         } catch (\Exception $e){
-            return ['codigo' => 500, 'mensagem' => 'Não foi possível excluir a tarefa!'];
+            return ['codigo' => 500, 'mensagem' => 'Não foi possível excluir a Obra!'];
         }
         return ['codigo' => 200, 'mensagem' => 'Excluído com sucesso!'];
     }

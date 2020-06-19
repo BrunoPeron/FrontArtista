@@ -34,9 +34,9 @@ class Obras
      */
     public $nome;
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="artista", type="integer", nullable=false)
+     * @ORM\Column(name="artista", type="string", nullable=false)
      */
     public $artista;
     /**
@@ -51,4 +51,11 @@ class Obras
      * @ORM\Column(name="likes", type="integer", nullable=false)
      */
     public $likes;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="iduser", type="integer", nullable=false)
+     */
+    public $iduser;
+
 }

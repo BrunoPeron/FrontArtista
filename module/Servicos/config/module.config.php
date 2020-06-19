@@ -160,6 +160,18 @@ return array(
                 'filters' => array(),
                 'name' => 'dataFim',
             ),
+            8 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'clienteid',
+            ),
+            9 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'artistaid',
+            ),
         ),
     ),
 );
