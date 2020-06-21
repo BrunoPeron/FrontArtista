@@ -88,15 +88,15 @@ return array(
         'authorization' => array(
             'Pessoa\\V1\\Rest\\Pessoa\\Controller' => array(
                 'collection' => array(
-                    'GET' => true,
-                    'POST' => true,
+                    'GET' => false,
+                    'POST' => false,
                     'PUT' => false,
                     'PATCH' => false,
                     'DELETE' => false,
                 ),
                 'entity' => array(
-                    'GET' => true,
-                    'POST' => true,
+                    'GET' => false,
+                    'POST' => false,
                     'PUT' => false,
                     'PATCH' => false,
                     'DELETE' => false,
