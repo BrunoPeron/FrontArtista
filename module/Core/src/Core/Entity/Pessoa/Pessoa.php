@@ -117,4 +117,11 @@ class Pessoa
      * @ORM\Column(name="datanasc", type="datetime", nullable=false)
      */
     public $datanasc;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="trabalhosfeitos", type="integer", nullable=false)
+     */
+    public $trabalhosfeitos;
+
 }
