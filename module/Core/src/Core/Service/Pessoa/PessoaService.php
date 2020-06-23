@@ -6,6 +6,7 @@ namespace Core\Service\Pessoa;
 use Core\Entity\Pessoa\Pessoa;
 use Core\Entity\Pessoa\Usuario;
 use Doctrine\ORM\EntityManager;
+use ZF\ApiProblem\ApiProblem;
 
 class PessoaService
 {
@@ -38,11 +39,8 @@ class PessoaService
         $data_nasc = \DateTime::createFromFormat("d/m/Y", $data['datanasc']);
         $pessoa->datanasc = $data_nasc;
 
-        if ($data['password'] == $data['confirmpassword']){
-//            var_dump('vardump');
-
-        }else{
-//            var_dump('erro');
+        if ($data['password'] != $data['confirmpassword']){
+            return ['codigo' => 500, 'mensagem' => 'As senhas devem ser iguais'];
 
         }
         try{

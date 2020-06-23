@@ -90,14 +90,14 @@ return array(
                 'collection' => array(
                     'GET' => true,
                     'POST' => true,
-                    'PUT' => false,
+                    'PUT' => true,
                     'PATCH' => false,
                     'DELETE' => false,
                 ),
                 'entity' => array(
                     'GET' => true,
                     'POST' => true,
-                    'PUT' => false,
+                    'PUT' => true,
                     'PATCH' => false,
                     'DELETE' => false,
                 ),
