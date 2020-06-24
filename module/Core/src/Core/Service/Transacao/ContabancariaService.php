@@ -48,7 +48,7 @@ class ContabancariaService
     public function fetch($id = null, $usr)
     {
         $qb = $this->em->createQueryBuilder()
-            ->select('p.cpf, p.banco,p.nrconta, p.tipoconta, p.nragencia')
+            ->select('p.tipoconta, p.cnpj, p.cpf, p.banco,p.nrconta, p.tipoconta, p.nragencia')
             ->from('Core\Entity\Transacao\Contabancaria', 'p');
         if($id){
             $qb->where("p.cod_conta = ?1");
@@ -58,6 +58,7 @@ class ContabancariaService
             $qb->where("p.codpessoa = ?1");
             $qb->setParameters([1 => $usr['user_id']]);
         }
+
         $result = $qb->getQuery()->getResult();
         return $result;
     }
