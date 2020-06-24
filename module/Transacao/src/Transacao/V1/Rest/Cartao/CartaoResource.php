@@ -77,8 +77,9 @@ class CartaoResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
+        $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
         $cartao = new Cartao($this->em);
-        return $cartao->fetch();
+        return $cartao->fetch('', $usr);
     }
 
     /**

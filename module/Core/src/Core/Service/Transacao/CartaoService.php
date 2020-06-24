@@ -28,7 +28,7 @@ class CartaoService
         $cartao->tipo = $data['tipo'];
         $cartao->validade = $data['validade'];
         $cartao->descadd = $data['descadd'];
-        $cartao->codpessoa = $data['codpessoa'];
+        $cartao->codpessoa = $usr['user_id'];
         try{
             $this->em->persist($cartao);
             $this->em->flush();
@@ -40,15 +40,18 @@ class CartaoService
         }
     }
 
-    public function fetch($id = null)
+    public function fetch($id = null, $usr)
     {
         $qb = $this->em->createQueryBuilder()
-            ->select('p.nrcartao, p.nome, p.sobrenome, p.cpf')
+            ->select('p.nrcartao, p.nome, p.sobrenome, p.cpf, p.tipo, p.validade, p.descadd')
             ->from('Core\Entity\Transacao\Cartao', 'p');
         if($id){
-            $qb->where("p.codpessoa = ?1");
+            $qb->where("p.cod_cartao = ?1");
             // $qb->setParamaters(array(1 => $id));
             $qb->setParameters([1 => $id]);
+        }else{
+            $qb->where("p.codpessoa = ?1");
+            $qb->setParameters([1 => $usr['user_id']]);
         }
         $result = $qb->getQuery()->getResult();
         return $result;
