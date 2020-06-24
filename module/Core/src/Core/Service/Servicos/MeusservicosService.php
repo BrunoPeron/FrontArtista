@@ -46,7 +46,7 @@ class MeusservicosService
         if (!$meusservicos->descricao) {
             $meusservicos->descricao = $data['descricao'];
         }
-        if($meusservicos->status!=1){
+        if($data['status']!=1){
             $meusservicos->status = $data['status'];
         }
 

@@ -23,14 +23,9 @@ class ObrasService
         }
 
         $usuario = $this->em->getRepository(\Core\Entity\Pessoa\Pessoa::class)->findOneBy(['codpessoa' => $usr['user_id']]);
+        $codpessoa = $usuario->codpessoa;
+        $nomep = $usuario->nomep;
         $obras->img = $data['img'];
-        foreach ($usuario as $key => $value){
-            if ($key == 'codpessoa'){
-                $codpessoa = $value;
-            } else if($key == 'nomep'){
-                $nomep = $value;
-            }
-        }
         $obras->iduser = $codpessoa;
         $obras->nome = $data['nome'];
         $obras->artista = $nomep;

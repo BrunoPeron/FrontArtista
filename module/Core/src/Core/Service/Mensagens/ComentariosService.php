@@ -17,21 +17,13 @@ class ComentariosService
         }
 
         $usuario = $this->em->getRepository(\Core\Entity\Pessoa\Pessoa::class)->findOneBy(['codpessoa' => $usr['user_id']]);
-        foreach ($usuario as $key => $value){
-            if ($key == 'codpessoa'){
-                $codpessoa = $value;
-            } else if($key == 'nomep'){
-                $nomep = $value;
-            }
-        }
+        $codpessoa = $usuario->codpessoa;
+        $nomep = $usuario->nomep;
         $comentarios->userid = $codpessoa;
         $comentarios->user = $nomep;
+
         $obra = $this->em->getRepository(\Core\Entity\Galeria\Obras::class)->findOneBy(['id' => $data['obraid']]);
-        foreach ($obra as $key => $value){
-            if($key == 'nome'){
-                $nomeobra = $value;
-            }
-        }
+        $nomeobra = $obra->nome;
         $comentarios->obraid = $data['obraid'];
         $comentarios->obra = $nomeobra;
         $comentarios->mensagem = $data['mensagem'];
