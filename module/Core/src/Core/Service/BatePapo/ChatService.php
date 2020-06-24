@@ -16,25 +16,32 @@ class ChatService{
         }
 
         $usuario = $this->em->getRepository(\Core\Entity\Pessoa\Pessoa::class)->findOneBy(['codpessoa' => $usr['user_id']]);
-        foreach ($usuario as $key => $value){
-            if ($key == 'codpessoa'){
-                $codpessoa = $value;
-            } else if($key == 'nomep'){
-                $nomep = $value;
+        $codpessoa = $usuario->codpessoa;
+        $nomep = $usuario->nomep;
+        $usuario2 = $this->em->getRepository(\Core\Entity\Pessoa\Pessoa::class)->findOneBy(['codpessoa' => $data['para']]);
+        $nomep2 = $usuario2->nomep;
+        $idchat = $this->em->getRepository(\Core\Entity\BatePapo\Chat::class)->findOneBy(['srcid' => $usr['user_id'], 'dstid' => $data['para']]);
+        if(!$idchat){
+            $sql = "select max(idchat) from chat";
+            $stmt = $this->em->getConnection()->prepare($sql);
+            $stmt->execute();
+            $resultado = $stmt->fetchAll();
+            if(!$resultado[0]['max']){
+                echo 37;
+                $chatid = 1;
+            } else {
+                echo 40;
+                $chatid = $resultado[0]['max'] + 1;
             }
+        } else {
+            $chatid = $idchat->idChat;
         }
-
-        $usuario2 = $this->em->getRepository(\Core\Entity\Pessoa\Pessoa::class)->findOneBy(['codpessoa' => $data['paraid']]);
-        foreach ($usuario2 as $key => $value){
-            if($key == 'nomep'){
-                $nomep2 = $value;
-            }
-        }
-        $chat->idChat = $data['idChat'];
+        $chat = new Chat();
+        $chat->idChat = $chatid;
         $chat->src = $nomep; //emisor
         $chat->srcid = $codpessoa;
         $chat->dst = $nomep2; //destinatario
-        $chat->dstid = $data['paraid'];
+        $chat->dstid = $data['para'];
         $datadia = date('d/m/Y');
         $chat->dateMensagem = \DateTime::createFromFormat("d/m/Y",$datadia);
         $chat->mensagem = $data['mensagem'];

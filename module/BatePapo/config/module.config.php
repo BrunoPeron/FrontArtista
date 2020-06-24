@@ -115,33 +115,9 @@ return array(
                 'required' => false,
                 'validators' => array(),
                 'filters' => array(),
-                'name' => 'id',
-            ),
-            1 => array(
-                'required' => false,
-                'validators' => array(),
-                'filters' => array(),
-                'name' => 'idChat',
-            ),
-            2 => array(
-                'required' => false,
-                'validators' => array(),
-                'filters' => array(),
-                'name' => 'dataMensagem',
-            ),
-            3 => array(
-                'required' => false,
-                'validators' => array(),
-                'filters' => array(),
                 'name' => 'mensagem',
             ),
-            4 => array(
-                'required' => false,
-                'validators' => array(),
-                'filters' => array(),
-                'name' => 'de',
-            ),
-            5 => array(
+            1 => array(
                 'required' => false,
                 'validators' => array(),
                 'filters' => array(),
